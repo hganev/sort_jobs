@@ -20,4 +20,9 @@ describe "Sort jobs" do
  	JobSorter::sort(multiple_jobs_hash).should == ["a", "b", "c"]
  end
 
+  it "returns multiple jobs with one dependency found" do
+ 	multiple_jobs_hash = @jobs.merge "a" => "", "b" => "c", "c" => ""
+ 	JobSorter::sort(multiple_jobs_hash).should == ["a", "c", "b"]
+ end
+
 end
