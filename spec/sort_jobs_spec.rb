@@ -10,9 +10,14 @@ describe "Sort jobs" do
     JobSorter::sort(@jobs).should be_empty
   end
 
-  it "returns a single job" do 
+  it "returns a single job without dependency" do 
   	single_job_hash = @jobs.merge "a" => ""
  	JobSorter::sort(single_job_hash).should == ["a"]
+ end
+
+ it "returns multiple jobs without dependencies" do
+ 	multiple_jobs_hash = @jobs.merge "a" => "", "b" => "", "c" => ""
+ 	JobSorter::sort(multiple_jobs_hash).should == ["a", "b", "c"]
  end
 
 end
