@@ -1,4 +1,4 @@
-"sort_jobs" excercise
+"sort_jobs" exercise
 =========
 
 Solution structure:
