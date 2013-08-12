@@ -5,7 +5,6 @@ module JobSorter
 			sorted_jobs = jobs.keys
 
 			dependency_hash = dependencies(jobs)
-			p dependency_hash
 			return sorted_jobs if dependency_hash.empty?
 			reorder(sorted_jobs, dependency_hash)
 		end
@@ -18,10 +17,16 @@ module JobSorter
 			reordered_jobs = jobs.dup
 			jobs.each_with_index do |job_letter, index|
 				if dependencies.keys.include?(job_letter)
-					reordered_jobs[index,index] = dependencies.assoc(job_letter).reverse			
+					key_index = reordered_jobs.index(job_letter)
+					value_index = reordered_jobs.index(dependencies[job_letter])
+
+					next if key_index > value_index
+
+					reordered_jobs[key_index,key_index] = dependencies.assoc(job_letter).reverse	
+					reordered_jobs.uniq!
 				end
 			end
-			reordered_jobs.uniq	
+			reordered_jobs
 		end
 	end
 end
