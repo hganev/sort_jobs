@@ -10,7 +10,10 @@ module JobSorter
 		end
 
 		def dependencies hash
-			dependency_hash = hash.select { |key, value| value[0] }
+			dependency_hash = hash.select do |key, value| 
+				raise "Jobs can't depend on themselves" if key == value
+				value[0] 
+			end
 		end
 
 		def reorder(jobs, dependencies)
