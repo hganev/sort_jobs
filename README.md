@@ -1,7 +1,9 @@
-sort_jobs
+"sort_jobs" excercise
 =========
 
 Solution structure:
 
-lib - source of the solution
-spec - rspec tests
+"lib" folder - contains the source of the solution
+
+"spec" folder - contains rspec tests
+
