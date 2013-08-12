@@ -3,7 +3,7 @@ require_relative "spec_helper"
 describe "Sort jobs" do
 
 	before do
-		@jobs = Hash.new({})
+		@jobs = Hash.new
 	end
 
 	it "returns an empty sequence" do
@@ -32,7 +32,12 @@ describe "Sort jobs" do
 
 	it "throws error because jobs can't depend on themselves" do
 		self_depend_jobs_hash = @jobs.merge "a" => "", "b" => "", "c" => "c"
-		expect { JobSorter::dependencies(self_depend_jobs_hash) }.to raise_error
+		expect { JobSorter::sort self_depend_jobs_hash }.to raise_error
+	end
+
+	it "throws error because jobs can't have circular dependencies" do
+		circular_dependencies = @jobs.merge "a" => "", "b" => "c", "c" => "f", "d" => "a", "e" => "", "f" => "b"
+		expect { JobSorter::sort circular_dependencies }.to raise_error
 	end
 
 end
